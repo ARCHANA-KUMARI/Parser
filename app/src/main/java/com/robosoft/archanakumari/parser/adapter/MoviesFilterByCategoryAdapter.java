@@ -13,7 +13,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.robosoft.archanakumari.parser.MainActivity;
+import com.robosoft.archanakumari.parser.Modal.CountCategory;
 import com.robosoft.archanakumari.parser.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by archanakumari on 4/2/16.
@@ -28,10 +31,11 @@ public class MoviesFilterByCategoryAdapter extends ArrayAdapter implements Compo
     private CheckBox mCheckAction, mCheckComedy, mCheckDrama, mCheckKids, mCheckSci, mCheckThriller;
     private Button mButtonOK, mButtonCancel;
     private Context mContext;
-
-    public MoviesFilterByCategoryAdapter(Context context, int resource) {
+   private ArrayList<CountCategory> mList;
+    public MoviesFilterByCategoryAdapter(Context context, int resource,ArrayList<CountCategory> list) {
         super(context, resource);
         this.mContext = context;
+        this.mList = list;
     }
 
     @Override
@@ -59,12 +63,13 @@ public class MoviesFilterByCategoryAdapter extends ArrayAdapter implements Compo
         mButtonOK = (Button) mOneRow.findViewById(R.id.ok);
         mButtonCancel = (Button) mOneRow.findViewById(R.id.cancel);
 
-        mTextmoviesAction.setText(mainActivity.moviesAction + "(" + mainActivity.countAction + ")");
-        mTextmoviesComedy.setText(mainActivity.moviesComedy + "(" + mainActivity.countComedy + ")");
-        mTextmoviesDrama.setText(mainActivity.moviesDrama + "(" + mainActivity.countDrama + ")");
-        mTextmoviesKids.setText(mainActivity.moviesKids + "(" + mainActivity.countKids + ")");
-        mTextmoivesSci.setText(mainActivity.moviesScFi + "(" + mainActivity.countScFI + ")");
-        mTextmoviesThriller.setText(mainActivity.moviesThriller + "(" + mainActivity.countThriller + ")");
+        CountCategory countCategory = mList.get(position);
+        mTextmoviesAction.setText(mainActivity.moviesAction + "(" +countCategory.getmCountAction()  + ")");
+        mTextmoviesComedy.setText(mainActivity.moviesComedy + "(" + countCategory.getmCountComedy() + ")");
+        mTextmoviesDrama.setText(mainActivity.moviesDrama + "(" + countCategory.getmCountDrama()+ ")");
+        mTextmoviesKids.setText(mainActivity.moviesKids + "(" + countCategory.getmCountKids() + ")");
+        mTextmoivesSci.setText(mainActivity.moviesScFi + "(" + countCategory.getmCountSci() + ")");
+        mTextmoviesThriller.setText(mainActivity.moviesThriller + "(" + countCategory.getmCountThriller() + ")");
 
 
         mCheckAction.setChecked(false);

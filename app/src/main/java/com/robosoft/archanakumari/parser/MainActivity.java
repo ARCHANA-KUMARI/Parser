@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private  boolean mActionstatus,mComedystatus,mDramastatus,mKidsstatus,mSciStatus,mThrillerStatus;
     private boolean mTitleStatus,mArtistStatus,mDateStatus;
     private List<StatusClass> mStatusList = new ArrayList<>();
-    public  static int countAction,countComedy,countDrama,countKids,countScFI,countThriller;
+    public  int countAction,countComedy,countDrama,countKids,countScFI,countThriller;
     public static String moviesAction,moviesComedy,moviesDrama,moviesKids,moviesScFi,moviesThriller;
     private List<MovieDetails> mCheckedList = new ArrayList();
 
@@ -91,8 +92,16 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.filterby) {
 
             FilterByCategory filterByCategory = new FilterByCategory();
-
+            Bundle bundle = new Bundle();
+            bundle.putInt("Action",countAction);
+            bundle.putInt("Comedy",countComedy);
+            bundle.putInt("Drama",countDrama);
+            bundle.putInt("Kids",countKids);
+            bundle.putInt("Sci",countScFI);
+            bundle.putInt("Thriller",countThriller);
+            filterByCategory.setArguments(bundle);
             FragmentManager fragmentManager = getSupportFragmentManager();
+
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.container,filterByCategory);
             fragmentTransaction.commit();

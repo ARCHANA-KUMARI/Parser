@@ -4,13 +4,17 @@ package com.robosoft.archanakumari.parser.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.robosoft.archanakumari.parser.Modal.CountCategory;
 import com.robosoft.archanakumari.parser.R;
 import com.robosoft.archanakumari.parser.adapter.MoviesFilterByCategoryAdapter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +24,7 @@ public class FilterByCategory extends Fragment {
     private ListView mListView;
     private Context mContext;
     private View mOneRow;
-
+    private ArrayList<CountCategory> mList = new ArrayList<>();
     public FilterByCategory() {
         // Required empty public constructor
     }
@@ -40,8 +44,17 @@ public class FilterByCategory extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        MoviesFilterByCategoryAdapter moviesFilterByCategoryAdapter = new MoviesFilterByCategoryAdapter(getActivity(),-1);
+        Bundle bundle = getArguments();
+        int countaction = bundle.getInt("Action");
+        Log.i("Hello", "Count is in FilterByFragment" + countaction);
+        int countComedy = bundle.getInt("Comedy");
+        int countDrama = bundle.getInt("Drama");
+        int countKids = bundle.getInt("Kids");
+        int countSci = bundle.getInt("Sci");
+        int countThriller = bundle.getInt("Thriller");
+        CountCategory countCategory = new CountCategory(countaction,countComedy,countDrama,countKids,countSci,countThriller);
+        mList.add(countCategory);
+        MoviesFilterByCategoryAdapter moviesFilterByCategoryAdapter = new MoviesFilterByCategoryAdapter(getActivity(),-1,mList);
         mListView.setAdapter(moviesFilterByCategoryAdapter);
     }
 }
