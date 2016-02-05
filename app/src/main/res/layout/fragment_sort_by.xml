@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:background="#C0C0C0"
+
+    tools:context="com.robosoft.archanakumari.parser.fragments.SortByFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/leftlayout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/title"
+            android:text="Title"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/artist"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:text="Artist"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/releasedate"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:text="Release date"/>
+    </LinearLayout>
+   <LinearLayout
+
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:id="@+id/rightlayout"
+       android:orientation="vertical"
+       android:layout_marginLeft="20dp"
+       android:layout_toRightOf="@id/leftlayout">
+       <CheckBox
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/checktitle"/>
+       <CheckBox
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/checkartist"/>
+       <CheckBox
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/checkreleasedate"/>
+   </LinearLayout>
+</RelativeLayout>

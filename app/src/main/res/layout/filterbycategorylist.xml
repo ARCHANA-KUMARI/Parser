@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#C0C0C0"
+
+    android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/left"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Action and Adventures"
+        android:textSize="26sp"
+        android:id="@+id/action"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Action and Adventures"
+        android:textSize="26sp"
+        android:id="@+id/comedy"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Action and Adventures"
+        android:textSize="26sp"
+        android:id="@+id/drama"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Action and Adventures"
+        android:textSize="26sp"
+        android:id="@+id/kids"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Action and Adventures"
+        android:textSize="26sp"
+        android:id="@+id/sci"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Action and Adventures"
+        android:textSize="26sp"
+        android:id="@+id/thriller"/>
+</LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="30dp"
+        android:id="@+id/right"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/left"
+
+        >
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/checkaction"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkcomedy"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkdrama"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkkids"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checksci"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkthriller"/>
+
+    </LinearLayout>
+   <LinearLayout
+       android:id="@+id/laythree"
+       android:layout_below="@id/right"
+       android:orientation="horizontal"
+       android:layout_width="wrap_content"
+       android:layout_centerInParent="true"
+       android:layout_height="wrap_content">
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/ok"
+           android:layout_margin="10dp"
+           android:text="OK"/>
+       <Button
+           android:layout_margin="10dp"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Cancel"
+           android:id="@+id/cancel"
+           />
+   </LinearLayout>
+</RelativeLayout>
