@@ -36,10 +36,10 @@ public class Downloader extends AsyncTask<Void, Void, HashMap<String, ArrayList<
     private DownloadedInformer downloadedInformer;
     HashMap<String, ArrayList<MovieDetails>> hashMap;
 
-    public Downloader(String mUrl, ListView mListView) {
+    public Downloader(Context context,String mUrl, ListView mListView) {
         this.mUrl = mUrl;
         this.mListView = mListView;
-
+        downloadedInformer = (DownloadedInformer) context;
     }
 
     @Override

@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements Cummunicator,Sort
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mListView = (ListView)findViewById(R.id.listview);
-        Downloader downloader = new Downloader(mUrl,mListView);
+        Downloader downloader = new Downloader(this,mUrl,mListView);
         downloader.execute();
      /*   try {
             hashMap = downloader.get();
