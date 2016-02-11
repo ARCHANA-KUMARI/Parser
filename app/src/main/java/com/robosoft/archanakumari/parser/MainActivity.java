@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements Cummunicator,Sort
 
     Toolbar toolbar;
     boolean status;
-
     ArrayList<FilterModelClass> nameList = new ArrayList<>();
     private ListView mListView;
     private String mUrl = "https://itunes.apple.com/us/rss/topvideorentals/limit=40/json";

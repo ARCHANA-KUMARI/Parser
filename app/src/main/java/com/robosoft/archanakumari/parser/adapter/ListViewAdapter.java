@@ -35,8 +35,9 @@ public class ListViewAdapter extends ArrayAdapter<MovieDetails> {
     private View mOneRow;
     private Context mContext;
     private ArrayList<MovieDetails> mMoviesList;
-
-    private int cacheSize = 1024 * 1024 * 10;
+    final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+    // Use 1/8th of the available memory for this memory cache.
+    final int cacheSize = maxMemory / 8;
     public LruCache<String, Bitmap> mMemoryCache = new LruCache<>(cacheSize);
 
     public ListViewAdapter(Context context, int resource, ArrayList<MovieDetails> mMoviesList) {
