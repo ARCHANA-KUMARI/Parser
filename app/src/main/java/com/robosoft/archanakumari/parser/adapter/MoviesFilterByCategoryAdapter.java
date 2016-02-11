@@ -1,19 +1,16 @@
 package com.robosoft.archanakumari.parser.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.robosoft.archanakumari.parser.MainActivity;
-import com.robosoft.archanakumari.parser.Modal.CountCategory;
+import com.robosoft.archanakumari.parser.Modal.FilterModelClass;
 import com.robosoft.archanakumari.parser.R;
 
 import java.util.ArrayList;
@@ -21,111 +18,59 @@ import java.util.ArrayList;
 /**
  * Created by archanakumari on 4/2/16.
  */
-public class MoviesFilterByCategoryAdapter extends ArrayAdapter implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+public class MoviesFilterByCategoryAdapter extends ArrayAdapter<FilterModelClass> {
 
+    static class ViewHolder {
+        protected TextView mTextMoviesName;
+        protected CheckBox mCheck;
+    }
 
-    MainActivity mainActivity = new MainActivity();
-
-    private View mOneRow;
-    private TextView mTextmoviesAction, mTextmoviesComedy, mTextmoviesDrama, mTextmoviesKids, mTextmoivesSci, mTextmoviesThriller;
-    private CheckBox mCheckAction, mCheckComedy, mCheckDrama, mCheckKids, mCheckSci, mCheckThriller;
-    private Button mButtonOK, mButtonCancel;
     private Context mContext;
-   private ArrayList<CountCategory> mList;
-    public MoviesFilterByCategoryAdapter(Context context, int resource,ArrayList<CountCategory> list) {
-        super(context, resource);
+    private ArrayList<FilterModelClass> arrayList;
+    public ArrayList<Boolean> chekBoxStatusList = new ArrayList<>();
+
+    public MoviesFilterByCategoryAdapter(Context context, int resource, ArrayList<FilterModelClass> objects) {
+        super(context, resource, objects);
         this.mContext = context;
-        this.mList = list;
+        this.arrayList = objects;
+
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        RelativeLayout mOneRow = (RelativeLayout) convertView;
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        LinearLayout mOneRow = (LinearLayout) convertView;
+        ViewHolder viewHolder = null;
+        FilterModelClass filterModelClass = null;
         if (null == mOneRow) {
             LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            mOneRow = (RelativeLayout) inflater.inflate(R.layout.filterbycategorylist, null);
+            mOneRow = (LinearLayout) inflater.inflate(R.layout.childtfilterlistview, null);
+            viewHolder = new ViewHolder();
+            viewHolder.mTextMoviesName = (TextView) mOneRow.findViewById(R.id.text);
+            viewHolder.mCheck = (CheckBox) mOneRow.findViewById(R.id.check);
+            filterModelClass = arrayList.get(position);
+            viewHolder.mTextMoviesName.setText(filterModelClass.getmCategoryname() + "(" + filterModelClass.getmCount() + ")");
+            viewHolder.mCheck.setChecked(filterModelClass.ismSelectedValue());
+            viewHolder.mCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    arrayList.get(position).setmSelectedValue(buttonView.isChecked()); // Set the value of checkbox to maintain its state
+
+                }
+            });
+            mOneRow.setTag(viewHolder);
+            mOneRow.setTag(R.id.text, viewHolder.mTextMoviesName);
+            mOneRow.setTag(R.id.check, viewHolder.mCheck);
+
+        } else {
+            viewHolder = (ViewHolder) mOneRow.getTag();
         }
-        mTextmoviesAction = (TextView) mOneRow.findViewById(R.id.action);
-        mTextmoviesComedy = (TextView) mOneRow.findViewById(R.id.comedy);
-        mTextmoviesDrama = (TextView) mOneRow.findViewById(R.id.drama);
-        mTextmoviesKids = (TextView) mOneRow.findViewById(R.id.kids);
-        mTextmoivesSci = (TextView) mOneRow.findViewById(R.id.sci);
-        mTextmoviesThriller = (TextView) mOneRow.findViewById(R.id.thriller);
-
-        mCheckAction = (CheckBox) mOneRow.findViewById(R.id.checkaction);
-        mCheckComedy = (CheckBox) mOneRow.findViewById(R.id.checkcomedy);
-        mCheckDrama = (CheckBox) mOneRow.findViewById(R.id.checkdrama);
-        mCheckKids = (CheckBox) mOneRow.findViewById(R.id.checkkids);
-        mCheckSci = (CheckBox) mOneRow.findViewById(R.id.checksci);
-        mCheckThriller = (CheckBox) mOneRow.findViewById(R.id.checkthriller);
-
-        mButtonOK = (Button) mOneRow.findViewById(R.id.ok);
-        mButtonCancel = (Button) mOneRow.findViewById(R.id.cancel);
-
-        CountCategory countCategory = mList.get(position);
-        mTextmoviesAction.setText(mainActivity.moviesAction + "(" +countCategory.getmCountAction()  + ")");
-        mTextmoviesComedy.setText(mainActivity.moviesComedy + "(" + countCategory.getmCountComedy() + ")");
-        mTextmoviesDrama.setText(mainActivity.moviesDrama + "(" + countCategory.getmCountDrama()+ ")");
-        mTextmoviesKids.setText(mainActivity.moviesKids + "(" + countCategory.getmCountKids() + ")");
-        mTextmoivesSci.setText(mainActivity.moviesScFi + "(" + countCategory.getmCountSci() + ")");
-        mTextmoviesThriller.setText(mainActivity.moviesThriller + "(" + countCategory.getmCountThriller() + ")");
-
-
-        mCheckAction.setChecked(false);
-        mCheckComedy.setChecked(false);
-        mCheckDrama.setChecked(false);
-        mCheckKids.setChecked(false);
-        mCheckSci.setChecked(false);
-        mCheckThriller.setChecked(false);
-
-        mCheckAction.setOnCheckedChangeListener(this);
-        mCheckComedy.setOnCheckedChangeListener(this);
-        mCheckDrama.setOnCheckedChangeListener(this);
-        mCheckKids.setOnCheckedChangeListener(this);
-        mCheckSci.setOnCheckedChangeListener(this);
-        mCheckThriller.setOnCheckedChangeListener(this);
-
-        mButtonOK.setOnClickListener(this);
-        mButtonCancel.setOnClickListener(this);
-
+        viewHolder.mCheck.setTag(position);
         return mOneRow;
     }
 
     @Override
     public int getCount() {
-        return 1;
+        return arrayList.size();
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-    }
-
-
-    @Override
-    public void onClick(View v) {
-
-        Intent intent = new Intent(mContext, MainActivity.class);
-        if (mCheckAction.isChecked()) {
-            intent.putExtra("Action", mCheckAction.isChecked());
-        }
-        if (mCheckComedy.isChecked()) {
-            intent.putExtra("Comedy", mCheckComedy.isChecked());
-        }
-        if (mCheckDrama.isChecked()) {
-            intent.putExtra("Drama", mCheckDrama.isChecked());
-        }
-        if (mCheckKids.isChecked()) {
-            intent.putExtra("Kids", mCheckKids.isChecked());
-        }
-        if (mCheckSci.isChecked()) {
-            intent.putExtra("Sci-Fi", mCheckSci.isChecked());
-        }
-        if (mCheckThriller.isChecked()) {
-            intent.putExtra("Thriller", mCheckThriller.isChecked());
-        }
-        mContext.startActivity(intent);
-
-    }
 }

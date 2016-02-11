@@ -4,13 +4,14 @@ package com.robosoft.archanakumari.parser.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
-import com.robosoft.archanakumari.parser.Modal.CountCategory;
+import com.robosoft.archanakumari.parser.Modal.Cummunicator;
+import com.robosoft.archanakumari.parser.Modal.FilterModelClass;
 import com.robosoft.archanakumari.parser.R;
 import com.robosoft.archanakumari.parser.adapter.MoviesFilterByCategoryAdapter;
 
@@ -19,13 +20,15 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FilterByCategory extends Fragment {
+public class FilterByCategoryFragment extends Fragment {
 
     private ListView mListView;
     private Context mContext;
     private View mOneRow;
-    private ArrayList<CountCategory> mList = new ArrayList<>();
-    public FilterByCategory() {
+    private Button mOkButton,mCancelButton;
+    Cummunicator cummunicator;
+    private ArrayList<FilterModelClass> mList = new ArrayList<>();
+    public FilterByCategoryFragment() {
         // Required empty public constructor
     }
 
@@ -35,9 +38,13 @@ public class FilterByCategory extends Fragment {
                              Bundle savedInstanceState) {
 
         mContext = container.getContext();
+        cummunicator = (Cummunicator) mContext;
         // Inflate the layout for this fragment
         mOneRow = inflater.inflate(R.layout.fragment_filter_by_category, container, false);
         mListView = (ListView)mOneRow.findViewById(R.id.listfragment);
+        mOkButton = (Button) mOneRow.findViewById(R.id.ok);
+        mCancelButton = (Button) mOneRow.findViewById(R.id.cancel);
+
         return mOneRow;
     }
 
@@ -45,16 +52,15 @@ public class FilterByCategory extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = getArguments();
-        int countaction = bundle.getInt("Action");
-        Log.i("Hello", "Count is in FilterByFragment" + countaction);
-        int countComedy = bundle.getInt("Comedy");
-        int countDrama = bundle.getInt("Drama");
-        int countKids = bundle.getInt("Kids");
-        int countSci = bundle.getInt("Sci");
-        int countThriller = bundle.getInt("Thriller");
-        CountCategory countCategory = new CountCategory(countaction,countComedy,countDrama,countKids,countSci,countThriller);
-        mList.add(countCategory);
+        mList = (ArrayList<FilterModelClass>) bundle.getSerializable("Name");
         MoviesFilterByCategoryAdapter moviesFilterByCategoryAdapter = new MoviesFilterByCategoryAdapter(getActivity(),-1,mList);
-        mListView.setAdapter(moviesFilterByCategoryAdapter);
+         mListView.setAdapter(moviesFilterByCategoryAdapter);
+         mOkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cummunicator.toCommunicate(mList);
+                getActivity().getSupportFragmentManager().beginTransaction().remove(FilterByCategoryFragment.this).commit();
+            }
+        });
     }
 }

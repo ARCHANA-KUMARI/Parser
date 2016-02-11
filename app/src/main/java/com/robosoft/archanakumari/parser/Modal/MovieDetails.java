@@ -1,17 +1,21 @@
 package com.robosoft.archanakumari.parser.Modal;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  * Created by archanakumari on 3/2/16.
  */
-public class MovieDetails {
+public class MovieDetails implements Serializable {
+
     private String mTilte;
     private String mArtist;
-    private String mReleasedData;
+    private Date mReleasedData;
     private String mPrice;
     private String mCategory;
     private String mImage;
 
-    public MovieDetails(String mTilte, String mArtist, String mReleasedData, String mPrice, String mCategory,String mImage) {
+    public MovieDetails(String mTilte, String mArtist, Date mReleasedData, String mPrice, String mCategory, String mImage) {
         this.mTilte = mTilte;
         this.mArtist = mArtist;
         this.mReleasedData = mReleasedData;
@@ -36,11 +40,11 @@ public class MovieDetails {
         this.mArtist = mArtist;
     }
 
-    public String getmReleasedData() {
+    public Date getmReleasedData() {
         return mReleasedData;
     }
 
-    public void setmReleasedData(String mReleasedData) {
+    public void setmReleasedData(Date mReleasedData) {
         this.mReleasedData = mReleasedData;
     }
 
