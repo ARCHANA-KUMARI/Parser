@@ -56,11 +56,18 @@ public class FilterByCategoryFragment extends Fragment {
         MoviesFilterByCategoryAdapter moviesFilterByCategoryAdapter = new MoviesFilterByCategoryAdapter(getActivity(),-1,mList);
          mListView.setAdapter(moviesFilterByCategoryAdapter);
          mOkButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 cummunicator.toCommunicate(mList);
+                 getActivity().getSupportFragmentManager().beginTransaction().remove(FilterByCategoryFragment.this).commit();
+             }
+         });
+        mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cummunicator.toCommunicate(mList);
                 getActivity().getSupportFragmentManager().beginTransaction().remove(FilterByCategoryFragment.this).commit();
             }
         });
     }
+
 }
