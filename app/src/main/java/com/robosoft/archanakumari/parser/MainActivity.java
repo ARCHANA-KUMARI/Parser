@@ -13,6 +13,7 @@ import com.robosoft.archanakumari.parser.Modal.ByArtistComparator;
 import com.robosoft.archanakumari.parser.Modal.ByTitleComparator;
 import com.robosoft.archanakumari.parser.Modal.Cummunicator;
 import com.robosoft.archanakumari.parser.Modal.DateComparator;
+import com.robosoft.archanakumari.parser.Modal.DownloadedInformer;
 import com.robosoft.archanakumari.parser.Modal.FilterModelClass;
 import com.robosoft.archanakumari.parser.Modal.MovieDetails;
 import com.robosoft.archanakumari.parser.Modal.SortModelClass;
@@ -28,9 +29,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends AppCompatActivity implements Cummunicator,SortingCommunicator {
+public class MainActivity extends AppCompatActivity implements Cummunicator,SortingCommunicator,DownloadedInformer {
 
     Toolbar toolbar;
     boolean status;
@@ -52,13 +52,14 @@ public class MainActivity extends AppCompatActivity implements Cummunicator,Sort
         mListView = (ListView)findViewById(R.id.listview);
         Downloader downloader = new Downloader(mUrl,mListView);
         downloader.execute();
-        try {
+     /*   try {
             hashMap = downloader.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        */
 
         Set keys = hashMap.entrySet();
         Iterator<MovieDetails> iterator = keys.iterator();
@@ -203,6 +204,11 @@ public class MainActivity extends AppCompatActivity implements Cummunicator,Sort
                 listViewAdapter.notifyDataSetChanged();
             }
         }
+    }
+
+    @Override
+    public void SendData(HashMap<String, ArrayList<MovieDetails>> arrayListHashMap) {
+        hashMap = arrayListHashMap;
     }
 }
 

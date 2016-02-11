@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ListView;
 
+import com.robosoft.archanakumari.parser.Modal.DownloadedInformer;
 import com.robosoft.archanakumari.parser.Modal.JsonParser;
 import com.robosoft.archanakumari.parser.Modal.MovieDetails;
 
@@ -32,7 +33,7 @@ public class Downloader extends AsyncTask<Void, Void, HashMap<String, ArrayList<
     private String mUrl;
     private ListView mListView;
     private Context mContext;
-
+    private DownloadedInformer downloadedInformer;
     HashMap<String, ArrayList<MovieDetails>> hashMap;
 
     public Downloader(String mUrl, ListView mListView) {
@@ -87,6 +88,7 @@ public class Downloader extends AsyncTask<Void, Void, HashMap<String, ArrayList<
     @Override
     protected void onPostExecute(HashMap<String, ArrayList<MovieDetails>> s) {
         super.onPostExecute(s);
+         downloadedInformer.SendData(s);
 
 
     }
